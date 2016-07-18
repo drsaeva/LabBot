@@ -46,4 +46,5 @@ public class IEBot extends IEBotSuper {
 		driver.findElement(By.id("userPassword")).submit();
 		
 	}
- 
+	
+} 
