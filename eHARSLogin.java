@@ -43,7 +43,7 @@ public class eHARSLogin {
 	
 	
 	/**
-	 * logMeIn will deprecate late --> notify user to login and wait (timer/sleep)
+	 * logMeIn will deprecate later --> notify user to login and wait (timer/sleep)
 	 */
 	
 	private void logMeIn(WebDriver driver) {											    
