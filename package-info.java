@@ -9,4 +9,4 @@
  * @author David R. Saeva
  *
  */
-package LabBot;
+package labBot;
