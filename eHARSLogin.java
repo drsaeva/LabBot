@@ -1,4 +1,4 @@
-package LabBot;
+package labBot;
 
 import java.io.File;
 import java.util.NoSuchElementException;
