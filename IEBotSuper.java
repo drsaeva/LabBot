@@ -28,10 +28,6 @@ public class IEBotSuper {
 		
 	}
 	
-	/**
-	 * logMeIn will deprecate late --> notify user to login and wait (timer/sleep)
-	 */
-	
 	//establishes IE webdriver run params	
 	public void setIEDesCaps(DesiredCapabilities desCaps) {         					                 
 		
