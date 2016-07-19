@@ -37,9 +37,9 @@ public class FormInfo extends LabDocSection {
 		// TODO code to set new case Y/N answer
 		/*
 		 * Requirements - regex for case name   <--- set via Identification Parsing Object
-		 * 				- search for case name  <--- results likely set via SearchCase Object
-		 * 						* needs - multiple methods of searching (DOB + fullname, DOB + L or F name, SSN, etc)
-		 * 								- search logic: if DOB+FN fails, do alternate search; if all fail, new case 
+		 * 		- search for case name  <--- results likely set via SearchCase Object
+		 * 			* needs - multiple methods of searching (DOB + fullname, DOB + L or F name, SSN, etc)
+		 * 				- search logic: if DOB+FN fails, do alternate search; if all fail, new case 
 		 */
 	}
 	
