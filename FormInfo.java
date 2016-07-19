@@ -22,12 +22,6 @@ public class FormInfo extends LabDocSection {
 		this.setDateComplete();
 		
 	}
-
-	@Override
-	public void parseLineWithRegex() {
-		// TODO Auto-generated method stub
-
-	}
 	
 	public String getNewCase() {
 		return newCase;
