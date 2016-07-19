@@ -51,7 +51,7 @@ public class FormInfo extends LabDocSection {
 		// TODO code to lab complete/report date
 		/*
 		 * Requirements - regex for complete date
-		 * 				- this should be fairly simple
+		 * 		- this should be fairly simple
 		 */
 	}
 	
