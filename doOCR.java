@@ -4,14 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import net.sourceforge.tess4j.*;
 
-public abstract class ocrAnalysis {
+public class doOCR {
 	
-	private String completeDate, caseName, caseDOB, 
+	/*private String completeDate, caseName, caseDOB, 
 		caseStreet, caseCity, caseState, caseZip,
 		casePhone, caseSex, collectDate, testType, 
-		testResult, physName, physPhone;
+		testResult, physName, physPhone;*/
 	
-	public void callTesseract(String path) {
+	public void doOCR(String path) {
 		ITesseract instance = new Tesseract(); 		// JNA Interface Mapping
 		System.setProperty(					   		
 				"java.library.path", "lib");
@@ -33,7 +33,11 @@ public abstract class ocrAnalysis {
 		System.out.println(ocrResults);
 	}
 	
-	protected abstract void parseLine();
+	public ArrayList<String> getOCRResults() {
+		return ocrResults;
+	}
+	
+	/*protected abstract void parseLine();
 	
 	public String getCompleteDate(){
 		return completeDate;
@@ -89,6 +93,6 @@ public abstract class ocrAnalysis {
 	
 	public String getPhysicianPhone() {
 		return physPhone;
-	}
+	}*/
 	
 }
