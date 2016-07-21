@@ -1,6 +1,6 @@
 # LabBot
 
-A java package designed to automate manual entry of paper labortarory reports into the CDC's eHARS via the use of Tesseract-OCR and Selenium.
+A Java package designed to automate manual entry of paper labortarory reports into the CDC's eHARS via the use of Tesseract-OCR and Selenium.
 
 @author drsaeva
 
