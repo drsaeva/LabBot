@@ -6,7 +6,8 @@
  *  
  */	
 /**
- * @author David R. Saeva
+ * @author drsaeva 
+ * David R. Saeva
  * 
  * This project is licensed under the GNU GENERAL PUBLIC LICENSE, 
  * Version 3, 29 June 2007. Please see the gpl.txt file included 
