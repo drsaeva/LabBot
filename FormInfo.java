@@ -1,3 +1,11 @@
+/**
+ * 
+ * This class reresents a section of a lab doc entry into eHARS, and is instantiated upon identification of 
+ * 	an instantiated LabDocData object keyed to it (ie: dateComplete).
+ * This relationship is mapped in an automation class to facilitate automated data entry into eHARS
+ * 
+ */
+
 package labBot;
 
 import java.text.DateFormat;
