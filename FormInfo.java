@@ -6,20 +6,32 @@ import java.util.Date;
 
 public class FormInfo extends LabDocSection {
 	
-	private String reportingCity, dateReceived, labSource,
-					newCase, reportMedium, surveillanceMethod,
-					dateComplete;
+protected String dateReceived, isNewCase, dateComplete;
+	protected static final Set<String> dataInIdentification = ImmutableSet.of(
+			"dateReceived", "isNewCase", "dateComplete"
+			);
 	
+	protected final String reportingCity = "BALTIMORE"; 	//Always Baltimore
+	protected final String reportingCityHtmlKeyword = "repHlthDeptName";
+	
+	protected final String labSource = "A05.03";  		//Default: private lab; make setter in the event that other labs are to be processed
+	
+	protected final String reportMedium = "2";  			//Select Code for Paper medium
+	
+	protected final String surveillanceMethod = "P"; 		//Default: passive (P); make setter in the event that there should be another option
+	
+	protected final String sectionHtmlKeyword = "formInfoForm";
+	protected static final String sectionName = new String("FormInfo");
+	
+	protected static void mapFormInfoSection(HashMap<String, LabDocSection> sectionsInLabDoc) {
+		sectionsInLabDoc.put(sectionName, new FormInfo());
+	}
 	
 	public FormInfo() {
 		// TODO Examine code - do I need anything else aside from these methods being run?
-		this.setReportingCity();
-		this.setDateReceived();
-		this.setLabSource();
-		this.setNewCase();
-		this.setReportMedium();
-		this.setSurveillanceMethod();
-		this.setDateComplete();
+		setNewCase(isNewCase);
+		setDateComplete(dateComplete);
+		setDateComplete(dateReceived);
 		
 	}
 	
@@ -41,54 +53,43 @@ public class FormInfo extends LabDocSection {
 		return dateComplete;
 	}
 	
-	public void setDateComplete() {
+	protected void setDateComplete(String dateComplete) {
 		// TODO code to lab complete/report date
 		/*
 		 * Requirements - regex for complete date
-		 * 		- this should be fairly simple
+		 * 				- this should be fairly simple
 		 */
+		
+		
+		dateComplete = "......"; //default behavior until regex is coded
+		this.dateComplete = dateComplete;
 	}
 	
 	public String getSurveillanceMethod() {
 		return surveillanceMethod;
 	}
 	
-	public void setSurveillanceMethod() {
-		surveillanceMethod = "PASSIVE"; //Default: passive; update in the event that this is to be different
-	}
-	
 	public String getReportMedium() {
 		return reportMedium;
-	}
-	
-	public void setReportMedium() {
-		reportMedium = "2";  //Select Code for Paper medium
 	}
 	
 	public String getReportingCity() {
 		return reportingCity;
 	}
-	
-	public void setReportingCity() {
-		reportingCity = new String("BALTIMORE"); //Always Baltimore
-	}
-	
+
 	public String getDateReceived() {
 		return dateReceived; 
 	}
 	
-	public void setDateReceived() {
+	private void setDateReceived(String dateReceived) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd"); //Always today?
 		Date today = new Date();
 		dateReceived = dateFormat.format(today).toString();
+		this.dateReceived = dateReceived;
 	}
 	
 	public String getLabSource() {
 		return labSource;
-	}
-	
-	public void setLabSource() {
-		labSource = new String("A05.03");  //Default: private lab; update in the event that hospital labs are to be processed
 	}
 
 }
