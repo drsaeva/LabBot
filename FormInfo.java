@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class FormInfo extends LabDocSection {
 	
-protected String dateReceived, isNewCase, dateComplete;
+	protected String dateReceived, isNewCase, dateComplete;
 	protected static final Set<String> dataInIdentification = ImmutableSet.of(
 			"dateReceived", "isNewCase", "dateComplete"
 			);
