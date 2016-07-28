@@ -1,3 +1,14 @@
+/**
+ * 
+ * Generic data class for instantion any time a new variable is regexed from the source document.
+ * Objects are instantiated via calling the createLabDocData() static method, which calls the class constructor
+ * 	and maps the object to a string describing the data source (equivalent to the value of dataSourceType)
+ * This map is to be referenced by automation classes (currently LabDocScanner, but others coming) to map
+ * 	LabDocData objects to specific LabDocSections, and facilitate access for automated data entry into eHARS
+ * 
+ * 
+ */
+
 package labBot;
 
 import java.util.HashMap;
