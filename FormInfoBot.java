@@ -1,14 +1,14 @@
-package labBot;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.Select;
-
 /**
  * 
  * This class is currently deprecated. It may be refactored for re-use at a later time.
  * 
  */
+ 
+package labBot;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 
 public class FormInfoBot extends FormInfo {
 
