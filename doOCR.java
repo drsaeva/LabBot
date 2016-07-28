@@ -1,3 +1,12 @@
+/**
+ *
+ * This class encapsulates OCR analysis functions provided by Tesseract. The doOCR(String path) method
+ * 	is called in an automation class, currnetly with a hard-coded string. 
+ * Eventually, this class will integrate with a file handler class that will locate and enable user-selection
+ * 	via GUI of scanned images for processing.
+ * 
+ */
+
 package labBot;
 
 import java.io.File;
