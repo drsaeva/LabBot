@@ -2,7 +2,7 @@
 
 A Java package designed to automate manual entry of paper labortarory reports into the CDC's eHARS via the use of Tesseract-OCR and Selenium.
 
-For a brief overview of the current status of this project, see the header of LabDocScanner.java or contact me at drsaeva@/gmail_com
+For a brief overview of the current status of this project, see the header of LabDocScanner.java or contact me at drsaeva@gmail_com
 
 @author drsaeva
 
