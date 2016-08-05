@@ -17,35 +17,72 @@
 
 package labBot;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LabDocScanner {
-	
-	private ArrayList<String> ocrResults = new ArrayList<String>();
-	private String firstName, lastName, dataSourceType;
-	
+
+	protected ArrayList<String> ocrResults = new ArrayList<String>();
+	protected ArrayList<String> matchResults = new ArrayList<String>();
+	public String firstName, lastName, dataSourceType;
+	public static final File source = new File("E:/CHSEE/QUESTVA_fake_AgAb.txt");
 	protected static HashMap<String,LabDocData> dataInDoc = new HashMap<String,LabDocData>();
 	protected static HashMap<String,LabDocSection> sectionsInDoc = new HashMap<String,LabDocSection>();
 	
-	public String path = new String("path-to-image");
-	
+	public static void main(String[] args) {
+		new LabDocScanner();
+
+	}
+ 	
 	public LabDocScanner() {
 		// TODO Auto-generated constructor stub
-		DoOCR labDoc = new DoOCR(path);
-		this.ocrResults = labDoc.getOCRResults();
-		iterateOverOcrResults(ocrResults);
+		
+		//DoOCR labDoc = new DoOCR();
+		//this.ocrResults = labDoc.getOCRResults();
+		try {
+			Scanner fileReader = new Scanner(source);
+			while (fileReader.hasNext()) {
+				ocrResults.add(fileReader.nextLine());
+			}
+			fileReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found!");
+		}
+		
+		/*for (String line : ocrResults) {
+			Pattern identifyQva = Pattern.compile(QVaRegexPatterns.questVaIdentifier);
+			Matcher m = identifyQva.matcher(line);
+			if (m.find()) {
+				doRegex(ocrResults.get(10), QVaRegexPatterns.orderingFacilityLine);
+				doRegex(ocrResults.get(12), QVaRegexPatterns.caseNameLine);
+				doRegex(ocrResults.get(13), QVaRegexPatterns.dobLine);
+				doRegex(ocrResults.get(14), QVaRegexPatterns.streetAddressLine);
+				doRegex(ocrResults.get(15), QVaRegexPatterns.cityStateZipLine);
+			}
+		}*/
+		
+		
+		//System.out.println(ocrResults.get(13));
+		//doRegex(ocrResults.get(13), QVaRegexPatterns.dobLine);
+		//System.out.println(firstName);
+		//System.out.println(matchResults.get(2));
+		
+		//iterateOverOcrResults(ocrResults);
+		//FormInfo.mapFormInfoSection(sectionsInDoc);
 	}
 
-	private void iterateOverOcrResults (ArrayList<String> ocrResults) {
+	/*public void iterateOverOcrResults (ArrayList<String> ocrResults) {
 		for (String line : ocrResults) {
-			doCaseNameRegex(line);
+			doRegex(line);
 			if (firstName != null && !firstName.isEmpty()) {
 
 				LabDocData.createLabDocData(dataInDoc, dataSourceType, firstName);
-				FormInfo.mapFormInfoSection(sectionsInDoc);
+				
 				
 			}
 			
@@ -56,7 +93,7 @@ public class LabDocScanner {
 			}
 			
 		}
-	}
+	}*/
 	
 	protected LabDocData getDataFromHashMap(String dataSourceType) {
 		return dataInDoc.get(dataSourceType);
@@ -66,31 +103,19 @@ public class LabDocScanner {
 		return sectionsInDoc.get(name);
 	}
 	
-	
-	private void doCaseNameRegex(String line) {
-		Pattern regexFirstName = Pattern.compile("[A-Z], ([A-Z])");
-		Matcher matchFirstNames = regexFirstName.matcher(line);
-		String firstName =  matchFirstNames.group(2);
-		String dataSourceType = "firstName";
-		this.firstName = firstName;
-		this.dataSourceType = dataSourceType;
-		
-		
-		Pattern regexLastName = Pattern.compile("([A-Z]), [A-Z]");
-		Matcher matchLastNames = regexLastName.matcher(line);
-		String lastName =  matchLastNames.group(2);
-		this.lastName = lastName;
-	}
-	
-	/*private LabDocData newLabDocData(String regexMatch, String regexReflection) {
-		if (regexMatch != null && !regexMatch.isEmpty()) {
-			for (Field field : regexMatch.getClass().getFields()) {
-				regexReflection = field.getName();
+	protected boolean doRegex(String line, String pattern) {
+		Pattern name = Pattern.compile(pattern);
+		Matcher matches = name.matcher(line);
+		//System.out.println(line);
+		matchResults.clear();
+		if (matches.find()) {
+			for (int i=1; i<=matches.groupCount(); i++) {
+					matchResults.add(matches.group(i));
 			}
-			LabDocData newData = new LabDocData(regexReflection);
-			newData.setDataSourceType(newData);
-			return newData;
-		}
-	}*/
+			return true;
+		} else {
+			return false;
+		}	
+	}
 	
 }
