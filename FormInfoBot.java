@@ -1,6 +1,9 @@
 /**
  * 
- * This class is currently deprecated. It may be refactored for re-use at a later time.
+ * This class serves as a controller for automated data-entry of data tied to the Form Info section
+ * 	of a lab doc. It extends the FormInfo class, which instantiates LabDocData objects for unchanging
+ * 	variables and provides an associative framework to which related LabDocData objects generated via
+ * 	Scanner classes can be tied and called during automation.
  * 
  */
  
@@ -13,63 +16,29 @@ import org.openqa.selenium.support.ui.Select;
 public class FormInfoBot extends FormInfo {
 
 	public FormInfoBot(WebDriver driver) {
-		/*	TODO Determine what this constructor needs 
-		 *  		- currently invokes superclass constructor to generate FormInfo object with field values as properties
-		 *  			* is this how I want to do things? 
-		 *  			* this means FormInfoBot works as a control Class for Form Info, 
-		 *  				rather than a different (global?) controller
-		 *  		- eventually will perform automated form-filling operations by calling fillXField() methods
-		 *  		- object can still be created by an overseeing controller Class - possible compomise
-		 */
+		 
+		for (String dataSourceType : dataInFormInfo) {
+			if (scanner.getDataFromHashMap(dataSourceType) != null) {
+				try { 
+					if (driver.findElements(By.cssSelector("input[id='"+scanner.getDataFromHashMap(dataSourceType)
+							.getDataFieldHtmlId()+"']")).size() != 0) {
+						DataBot.fillTextField(driver, scanner.getDataFromHashMap(dataSourceType).getDataFieldHtmlId(), 
+								scanner.getDataFromHashMap(dataSourceType).getDataValue());
+					}
+				} catch (Exception e) {	
+				}
+				
+				try { 
+					if (driver.findElements(By.cssSelector("selector[id='"+scanner.getDataFromHashMap(dataSourceType)
+							.getDataFieldHtmlId()+"']")).size() != 0) {
+						DataBot.selectOption(driver, scanner.getDataFromHashMap(dataSourceType).getDataFieldHtmlId(), 
+								scanner.getDataFromHashMap(dataSourceType).getDataValue());
+					}
+				} catch (Exception e) {
+				}
+			}
+		}
 		
-		super();
-		
-		FormInfo formInfo = new FormInfo();
-		this.fillReportingCityField(driver, formInfo);
-		this.fillDateReceivedField(driver, formInfo);
-		this.fillSourceField(driver, formInfo);
-		this.fillNewCaseField(driver, formInfo);
-		this.fillReportMediumField(driver, formInfo);
-		this.fillSurveillanceMethodField(driver, formInfo);
-		this.fillDateCompleteField(driver, formInfo);
-	}
-	
-	/*
-	 * Current methods analysis
-	 * 		- method inputs are repetitive - is there a way to simplify this?
-	 */
-	
-	public void fillReportingCityField(WebDriver driver, FormInfo formInfo) {
-		driver.findElement(By.name("formInfoForm.repHlthDeptName")).sendKeys(formInfo.getReportingCity());
-	}
-	
-	public void fillDateReceivedField(WebDriver driver, FormInfo formInfo) {
-		driver.findElement(By.name("formInfoForm.receiveDt")).sendKeys(formInfo.getDateReceived());
-	}
-	
-	public void fillSourceField(WebDriver driver, FormInfo formInfo) {
-		driver.findElement(By.name("formInfoForm.documentSourceCd")).sendKeys(formInfo.getLabSource());
-		// TODO get html code for Source field Popup, code behavior to click A05.03 link
-		
-	}
-	
-	public void fillNewCaseField(WebDriver driver, FormInfo formInfo) {
-		Select isNewCase = new Select(driver.findElement(By.name("formInfoForm.initinvest")));
-		isNewCase.selectByValue(formInfo.getNewCase());
-	}
-	
-	public void fillReportMediumField(WebDriver driver, FormInfo formInfo) {
-		Select selectReportMedium = new Select(driver.findElement(By.name("formInfoForm.rptMedium")));
-		selectReportMedium.selectByValue(formInfo.getReportMedium());
-	}
-	
-	public void fillSurveillanceMethodField(WebDriver driver, FormInfo formInfo) {
-		Select selectSurveillanceMethod = new Select(driver.findElement(By.name("formInfoForm.survMethod")));
-		selectSurveillanceMethod.selectByValue(formInfo.getSurveillanceMethod());
-	}
-	
-	public void fillDateCompleteField(WebDriver driver, FormInfo formInfo) {
-		driver.findElement(By.name("formInfoForm.completeDt")).sendKeys(formInfo.getDateComplete());
 	}
 
 }
