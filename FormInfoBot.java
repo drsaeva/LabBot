@@ -20,15 +20,19 @@ public class FormInfoBot extends FormInfo {
 		for (String dataSourceType : dataInFormInfo) {
 			if (scanner.getDataFromHashMap(dataSourceType) != null) {
 				try { 
-					if (driver.findElements(By.cssSelector("input[id='"+getFieldId(scanner,dataSourceType)+"']")).size() != 0) {
-						DataBot.fillTextField(driver, getFieldId(scanner,dataSourceType), getValue(scanner, dataSourceType));
+					if (driver.findElements(By.cssSelector("input[id='"
+					    +getFieldId(scanner,dataSourceType)+"']")).size() != 0) {
+						DataBot.fillTextField(driver, getFieldId(scanner,dataSourceType), 
+						    getValue(scanner, dataSourceType));
 					}
 				} catch (Exception e) {	
 				}
 				
 				try { 
-					if (driver.findElements(By.cssSelector("selector[id='"+getFieldId(scanner,dataSourceType)+"']")).size() != 0) {
-						DataBot.selectOption(driver, getFieldId(scanner,dataSourceType), getValue(scanner, dataSourceType));
+					if (driver.findElements(By.cssSelector("selector[id='"
+					    +getFieldId(scanner,dataSourceType)+"']")).size() != 0) {
+						DataBot.selectOption(driver, getFieldId(scanner,dataSourceType), 
+						    getValue(scanner, dataSourceType));
 					}
 				} catch (Exception e) {
 				}
