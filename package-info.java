@@ -3,6 +3,9 @@
  *  reports into the eHARS document system. To this end, Tess4J and 
  *  Selenium are used for OCR of scanned lab reports and IE browser
  *  automation, respectively.
+ * 
+ *  A class heirarchy and operational summary will be added to this
+ *  file in the near future.
  *  
  */	
 /**
