@@ -63,5 +63,4 @@ public class QVARegexPatterns {
 	 */
 	protected static final String cityStateZipLine = "([A-Z]+|[A-Z]+\\s[A-Z]+|[A-Z]+\\s[A-Z]+\\s[A-Z]+)\\s+,\\s[A-Z]{2}\\s(\\d{5})";
 	
-
 }
