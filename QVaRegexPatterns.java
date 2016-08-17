@@ -19,22 +19,6 @@ public class QVARegexPatterns {
 	 */
 	protected static final String dateCompleteLine = "Printed\\s(\\d{2}\\s[A-Z]{3}\\s\\d{4})\\sIncluding";
 	
-	//probably should move to FormInfo or FormInfoBot or whatever class ends up driving Form Info section automation
-	protected static final Map<String,String> convertAlphaMonthToNum = ImmutableMap.<String,String>builder()
-			.put("JAN","01")
-			.put("FEB","02")
-			.put("MAR","03")
-			.put("APR","04")
-			.put("MAY","05")
-			.put("JUN","06")
-			.put("JUL","07")
-			.put("AUG","08")
-			.put("SEP","09")
-			.put("OCT","10")
-			.put("NOV","11")
-			.put("DEC","12")
-			.build();
-	
 	/*
 	 * Pattern for line containing:
 	 * Ordering Facility of Test [1]
