@@ -14,8 +14,6 @@ import com.google.common.collect.ImmutableList;
 
 public class QuestVaScanner extends LabDocScanner {
 	
-	private final ImmutableList<String> dateCompleteLineData = ImmutableList.of(
-			"dateComplete");
 	private final ImmutableList<String> caseNameLineData = ImmutableList.of(
 			"physicianLastName", "physicianFirstName", "lastName", "firstName",
 			"birthSex");
@@ -28,14 +26,18 @@ public class QuestVaScanner extends LabDocScanner {
 	private final ImmutableList<String> cityStateZipLineData = ImmutableList.of(
 			"cityName", "zipCode");
 	
-	public static void main(String[] args) {
+	private final Map<String,String> convertAlphaMonthToNum = ImmutableMap.<String,String>builder()
+				.put("JAN","01").put("FEB","02").put("MAR","03").put("APR","04")
+				.put("MAY","05").put("JUN","06").put("JUL","07").put("AUG","08")
+				.put("SEP","09").put("OCT","10").put("NOV","11").put("DEC","12")
+				.build();
+	
+	private String dateCompleteAdjusted;
+	
+	/*public static void main(String[] args) {
 		new QuestVaScanner();
 		
-	}
-	
-	/**
-	 * Scanner Class Specific to Quest VA
-	 */
+	}*/
 	
 	public QuestVaScanner() {
 		// TODO Auto-generated constructor stub
@@ -47,7 +49,8 @@ public class QuestVaScanner extends LabDocScanner {
 			if (m.find()) {
 				for (String line : ocrResults) {	
 					if (doRegex(line, QVaRegexPatterns.dateCompleteLine)){
-						makeLabDocDataFromMatches(dateCompleteLineData);
+						adjustDateCompleteFormat();
+						LabDocData.createLabDocData(dataInDoc, "dateComplete", dateCompleteAdjusted);
 						//System.out.println(dataInDoc.get("dateComplete").getDataValue());
 					} else if (doRegex(line, QVaRegexPatterns.orderingFacilityLine)) {
 						makeLabDocDataFromMatches(orderingFacilityLineData);
@@ -82,5 +85,12 @@ public class QuestVaScanner extends LabDocScanner {
 		}
 	}
 	
+	private void adjustDateCompleteFormat() {
+		String month = convertAlphaMonthToNum.get(matchResults.get(1));
+		String day = matchResults.get(0);
+		String year = matchResults.get(2);
+		dateCompleteAdjusted = month+"/"+day+"/"+year;
+		
+	}
 
 }
