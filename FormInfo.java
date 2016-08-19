@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-public class FormInfo extends LabDocSection {
+public class FormInfo {
 	
 	public static List<String> dataInFormInfo;
 	static {
