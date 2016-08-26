@@ -38,15 +38,5 @@ public class FormInfoBot extends FormInfo {
 				}
 			}
 		}
-		
 	}
-	
-	private String getValue(LabDocScanner scanner, String dataSourceType) {
-		return scanner.getDataFromHashMap(dataSourceType).getDataValue();
-	}
-	
-	private String getFieldId(LabDocScanner scanner, String dataSourceType) {
-		return scanner.getDataFromHashMap(dataSourceType).getDataFieldHtmlId();
-	}
-
 }
