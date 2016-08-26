@@ -90,7 +90,10 @@ public class QuestVaScanner extends LabDocScanner {
 		String day = matchResults.get(0);
 		String year = matchResults.get(2);
 		dateCompleteAdjusted = month+"/"+day+"/"+year;
-		
+	}
+	
+	protected void setLabName() {
+		LabDocData.createLabDocData(LabDocScanner.dataInDoc, "labName", "49D0221801");
 	}
 
 }
