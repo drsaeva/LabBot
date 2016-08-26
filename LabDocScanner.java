@@ -25,7 +25,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LabDocScanner {
+public abstract class LabDocScanner {
 
 	protected ArrayList<String> ocrResults = new ArrayList<String>();
 	protected ArrayList<String> matchResults = new ArrayList<String>();
@@ -33,17 +33,8 @@ public class LabDocScanner {
 	public static final File source = new File("E:/CHSEE/QUESTVA_fake_AgAb.txt");
 	protected static HashMap<String,LabDocData> dataInDoc = new HashMap<String,LabDocData>();
 	protected static HashMap<String,LabDocSection> sectionsInDoc = new HashMap<String,LabDocSection>();
-	
-	public static void main(String[] args) {
-		new LabDocScanner();
-
-	}
  	
 	public LabDocScanner() {
-		// TODO Auto-generated constructor stub
-		
-		//DoOCR labDoc = new DoOCR();
-		//this.ocrResults = labDoc.getOCRResults();
 		try {
 			Scanner fileReader = new Scanner(source);
 			while (fileReader.hasNext()) {
@@ -53,56 +44,8 @@ public class LabDocScanner {
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found!");
 		}
-		
-		/*for (String line : ocrResults) {
-			Pattern identifyQva = Pattern.compile(QVaRegexPatterns.questVaIdentifier);
-			Matcher m = identifyQva.matcher(line);
-			if (m.find()) {
-				doRegex(ocrResults.get(10), QVaRegexPatterns.orderingFacilityLine);
-				doRegex(ocrResults.get(12), QVaRegexPatterns.caseNameLine);
-				doRegex(ocrResults.get(13), QVaRegexPatterns.dobLine);
-				doRegex(ocrResults.get(14), QVaRegexPatterns.streetAddressLine);
-				doRegex(ocrResults.get(15), QVaRegexPatterns.cityStateZipLine);
-			}
-		}*/
-		
-		
-		//System.out.println(ocrResults.get(13));
-		//doRegex(ocrResults.get(13), QVaRegexPatterns.dobLine);
-		//System.out.println(firstName);
-		//System.out.println(matchResults.get(2));
-		
-		//iterateOverOcrResults(ocrResults);
-		//FormInfo.mapFormInfoSection(sectionsInDoc);
 	}
 
-	/*public void iterateOverOcrResults (ArrayList<String> ocrResults) {
-		for (String line : ocrResults) {
-			doRegex(line);
-			if (firstName != null && !firstName.isEmpty()) {
-
-				LabDocData.createLabDocData(dataInDoc, dataSourceType, firstName);
-				
-				
-			}
-			
-			if (lastName != null && !lastName.isEmpty()) {
-
-				LabDocData.createLabDocData(dataInDoc, dataSourceType, lastName);
-				
-			}
-			
-		}
-	}*/
-	
-	protected LabDocData getDataFromHashMap(String dataSourceType) {
-		return dataInDoc.get(dataSourceType);
-	}
-	
-	protected LabDocSection getLabDocSectionByName(String name) {
-		return sectionsInDoc.get(name);
-	}
-	
 	protected boolean doRegex(String line, String pattern) {
 		Pattern name = Pattern.compile(pattern);
 		Matcher matches = name.matcher(line);
@@ -117,5 +60,23 @@ public class LabDocScanner {
 			return false;
 		}	
 	}
+	
+	public LabDocData getDataFromHashMap(String dataSourceType) {
+		return dataInDoc.get(dataSourceType);
+	}
+	
+	public String getValue(LabDocScanner scanner, String dataSourceType) {
+		return scanner.getDataFromHashMap(dataSourceType).getDataValue();
+	}
+	
+	public String getFieldId(LabDocScanner scanner, String dataSourceType) {
+		return scanner.getDataFromHashMap(dataSourceType).getDataFieldHtmlId();
+	}
+	
+	protected LabDocSection getLabDocSectionByName(String name) {
+		return sectionsInDoc.get(name);
+	}
+	
+	protected abstract void setLabName();
 	
 }
