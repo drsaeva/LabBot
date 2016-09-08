@@ -1,6 +1,6 @@
 # LabBot
 
-A Java package designed to automate manual entry of paper documents reporting from clinical laboratory results into the CDC's eHARS via the use of [Tesseract-OCR](https://github.com/tesseract-ocr) and [Selenium](http://www.seleniumhq.org/).
+A Java package designed to automate manual entry of paper documents reporting clinical laboratory results into the CDC's eHARS via the use of [Tesseract-OCR](https://github.com/tesseract-ocr) and [Selenium](http://www.seleniumhq.org/).
 
 This project is currently under development. For a brief overview of the current status of this project, contact me at drsaeva@gmail_com.
 
