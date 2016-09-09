@@ -28,13 +28,14 @@ public class LocalFields implements LabDocSection {
 	
 	//creates LabDocData from string after running parseName twice, value is First/Last initials concatenated as String from parseName
 	protected void parseUser(WebDriver driver) {
-		for (WebElement element : driver.findElements(By.xpath("//strong"))) {
-			if (element.getText().contains("User:")) {
-				String userName = parseName(element.getText(), parseName);
-				String userNameShort = parseName(userName.toUpperCase(), parseNameShort);
-				LabDocData.createLabDocData(LabDocScanner.dataInDoc, "localFieldsUser", userNameShort);
-			}
-			
+		try {
+			WebElement userNameRaw = driver.findElement(By.xpath("//tr[1]/td/table/tbody/tr/td[1]/strong"));
+			String a = userNameRaw.getAttribute("innerHTML");
+			String userName = parseName(a, parseName);
+			String userNameShort = parseName(userName.toUpperCase(), parseNameShort);
+			LabDocData.createLabDocData(LabDocScanner.dataInDoc, "localFieldsUser", userNameShort);
+		} catch (Exception e) {
+			System.out.println("Username parsing failed, manually select user during QA");
 		}
 	}
 	
@@ -42,13 +43,12 @@ public class LocalFields implements LabDocSection {
 	protected String parseName(String input, Pattern p) {
 		Matcher m = p.matcher(input);
 		String parsedName = "";
+		
+		//while matching, concat matches to parsedName
 		while (m.find()) {
-			ArrayList<String> results = new ArrayList<String>();
-			for (int i=0; i<m.groupCount(); i++) {
-				results.add(m.group(i));
-			}
-			for (String s : results) {
-				parsedName.concat(s);
+			parsedName = m.group(1);
+			for (int i=1; i<=m.groupCount(); i++) {
+				parsedName = parsedName.concat(m.group(i));
 			}
 		}
 		return parsedName;
