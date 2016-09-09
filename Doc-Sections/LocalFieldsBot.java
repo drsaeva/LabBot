@@ -4,7 +4,7 @@
  * 	Local Fields section of a lab doc and selects the 
  * 	correct user from that menu
  * 
- * @author dsaeva
+ * @author drsaeva
  */
  
 package labBot;
