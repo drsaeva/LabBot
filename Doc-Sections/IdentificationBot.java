@@ -1,3 +1,11 @@
+/**
+ * Class IdentificationBot 
+ * Iterates over data belonging to the Identification Section (see parent class)
+ * Enters child data object values into their respective fields
+ * 
+ * @author drsaeva
+ */
+
 package labBot;
 
 import org.openqa.selenium.By;
@@ -13,14 +21,17 @@ public class IdentificationBot extends Identification {
 	public IdentificationBot(WebDriver driver, QuestVaScanner scanner) {
 		for (String dataSourceType : dataInIdentification) {
 			if (scanner.getDataFromHashMap(dataSourceType) != null) {
+				
+				//handler for zip code - presses TAB after entry to activate frontend JS that fills City/County fields based on entry
 				if (dataSourceType == "zipCode") {
 					DataBot.fillTextField(driver, scanner.getFieldId(dataSourceType), scanner.getValue(dataSourceType));
 					driver.findElement(By.cssSelector("input[id='"+scanner.getFieldId(dataSourceType)+"']")).sendKeys(Keys.TAB);
 				} 
 				
+				//handler for city - select city name from available cities for zip code input, if not present notify user and move on
 				else if (dataSourceType == "cityName") {
 					try { 
-						selectCity(driver, scanner.getFieldId(dataSourceType), scanner.getValue(dataSourceType));
+						DataBot.selectOptionText(driver, scanner.getFieldId(dataSourceType), scanner.getValue(dataSourceType));
 					} catch (Exception unlistedCity) {
 						System.out.println("City not found in dropdown choices, selecting default choice for zip code.");
 						Actions pressEnter = new Actions(driver);
@@ -28,17 +39,17 @@ public class IdentificationBot extends Identification {
 					}
 				}
 				
+				//handler for SSN - performs selects SSN from ID drop down menu, then enters parsed SSN data if it exists
 				else if (dataSourceType == "id") {
 					if (scanner.getDataFromHashMap("SSN") != null) {
-						//driver.findElement(By.cssSelector("select[id='"+scanner.getFieldId(getOptionValueForIdType("SSN"))+"']"));
 						DataBot.selectOption(driver, scanner.getFieldId("ssnSelect"), scanner.getValue("ssnSelect"));
 						driver.findElement(By.id(scanner.getFieldId("SSN"))).sendKeys(scanner.getValue("SSN"));
 						driver.findElement(By.cssSelector("input[value='addID']")).click();
 					}
 				}
 				
+				//generic handlers for all other fields - i.e. first/last name, street address
 				else {
-					//System.out.println(getValue(scanner,dataSourceType));
 					if (driver.findElements(By.cssSelector("input[id='"+scanner.getFieldId(dataSourceType)+"']")).size() != 0) {
 						System.out.println(scanner.getValue(dataSourceType));
 						DataBot.fillTextField(driver, scanner.getFieldId(dataSourceType), scanner.getValue(dataSourceType));
@@ -54,14 +65,11 @@ public class IdentificationBot extends Identification {
 			}
 
 		}
+		
+		//Click "Add" for name and address sections, finalizing input
 		driver.findElement(By.cssSelector("input[value='Add Name']")).click();
 		driver.findElement(By.cssSelector("input[value='Add Address']")).click();
 		
 	}
-	
-	private void selectCity(WebDriver driver, String cityNameHtmlId, String cityName) {
-		Select selectOption = new Select(driver.findElement(By.id(cityNameHtmlId)));
-		selectOption.selectByVisibleText(cityName);
-	}
-	
+
 }
